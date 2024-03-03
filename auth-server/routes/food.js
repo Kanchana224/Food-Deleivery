@@ -3,7 +3,7 @@
 const express = require("express");
 const router = express.Router();
 const protect = require("../middleware/authMiddleware");
-const { createFood, getAllFoods, getFoodById, getNewFoods, getFoodsFromDistinctCategory, getTopRating, getFoodsFromDistinctCategory1, getAllFoods1, deleteFoodById, updateFoodById } = require("../controller/food");
+const { createFood, getAllFoods, getFoodById, getNewFoods, getFoodsFromDistinctCategory, getTopRating, getFoodsFromDistinctCategory1, getAllFoods1, deleteFoodById, updateFoodById } = require("../controller/food.js");
 
 // Food routes
 router.post("/addfood", protect, createFood);

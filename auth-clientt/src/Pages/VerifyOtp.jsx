@@ -25,7 +25,7 @@ const VerifyOtp = () => {
         const email = user.user.email;
         const dataOtp = { email, combineOtp };
         try {
-            const response = await axios.post("http://localhost:8000/api/v1/user/verify-otp", dataOtp);
+            const response = await axios.post("https://food-deleivery.onrender.com/api/v1/user/verify-otp", dataOtp);
             if (response.data.success) {
                 toast.success(response.data.message);
                 setTimeout(() => navigate("/"), 1000); // Navigate to the home page after successful verification

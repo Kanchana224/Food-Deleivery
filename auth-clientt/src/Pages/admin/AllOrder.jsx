@@ -7,7 +7,7 @@ const AllOrder = () => {
 
     const getAllOrders = async () => {
         try {
-            const res = await axios.get("http://localhost:8000/api/v1/order/getAllOrders", {
+            const res = await axios.get("https://food-deleivery.onrender.com/api/v1/order/getAllOrders", {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`
                 }
@@ -26,7 +26,7 @@ const AllOrder = () => {
 
     const handleDelivered = async (id) => {
         try {
-            const res = await axios.post("http://localhost:8000/api/v1/order/status", {
+            const res = await axios.post("https://food-deleivery.onrender.com/api/v1/order/status", {
                 orderId: id
             });
             if (res.data.success) {
