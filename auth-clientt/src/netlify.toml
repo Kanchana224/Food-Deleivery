@@ -1,8 +1,14 @@
 [build]
-command="npm run build"
-publish="/build"
-base="/"
+  command = "npm run build"
+  publish = "/build"
+  base = "/"
+
+[[headers]]
+  for = "/*.js"
+    [headers.values]
+    Content-Type = "text/javascript"
+
 [[redirects]]
-from="/*"
-to="/index.html"
-status=200
+  from = "/*"
+  to = "/index.html"
+  status = 200
