@@ -10,7 +10,7 @@ export default function ProtectedRoute({children}){
     const getUser=async()=>{
       try {
     const res=await axios.post(
-        "https://food-deleivery.onrender.com/api/v1/user/get-user",{
+        "http://localhost:8000/api/v1/user/get-user",{
             token:localStorage.getItem("token")
         },{
             headers:{

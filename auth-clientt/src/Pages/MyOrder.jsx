@@ -15,7 +15,7 @@ const MyOrder = () => {
     const getMyOrders = async () => {
         try {
     
-            const res = await axios.post("https://food-deleivery.onrender.com/api/v1/order/getorder", {
+            const res = await axios.post("http://localhost:8000/api/v1/order/getorder", {
                 userId: user?.user._id,
                 token:localStorage.getItem("token")
             }, {

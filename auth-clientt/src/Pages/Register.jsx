@@ -16,7 +16,7 @@ const Register = () => {
 
     try {
       const { data } = await axios.post(
-        "https://food-deleivery.onrender.com/api/v1/all/upload-image",
+        "http://localhost:8000/api/v1/all/upload-image",
         formData
       );
       setImage({
@@ -41,7 +41,7 @@ const Register = () => {
 
     try {
       const response = await axios.post(
-        "https://food-deleivery.onrender.com/api/v1/user/register",
+        "http://localhost:8000/api/v1/user/register",
         userData
       );
       if (response.data.success) {

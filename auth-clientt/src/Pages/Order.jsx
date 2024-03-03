@@ -36,7 +36,7 @@ const Order = () => {
                 throw new Error("User ID is undefined");
             }
 
-            const response = await axios.post("https://food-deleivery.onrender.com/api/v1/order/session", {
+            const response = await axios.post("http://localhost:8000/api/v1/order/session", {
                 userId: userId,
                 items: orderItems,
                 totalAmount: totalPrice,

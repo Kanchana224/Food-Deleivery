@@ -8,7 +8,7 @@ const FoodList = () => {
         // Fetch food items from the backend
         const fetchFoods = async () => {
             try {
-                const response = await axios.get('https://food-deleivery.onrender.com/api/v1/food/getAllFoods');
+                const response = await axios.get('http://localhost:8000/api/v1/food/getAllFoods');
                 setFoods(response.data.data.food);
             } catch (error) {
                 console.error('Error fetching foods:', error);
@@ -27,7 +27,7 @@ const FoodList = () => {
                 return;
             }
     
-            await axios.delete(`https://food-deleivery.onrender.com/api/v1/food/deleteFood/${id}`, {
+            await axios.delete(`http://localhost:8000/api/v1/food/deleteFood/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
