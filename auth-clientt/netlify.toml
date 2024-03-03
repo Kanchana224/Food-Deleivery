@@ -1,13 +1,4 @@
-[[headers]]
-  for = "/*.js"
-    [headers.values]
-    Content-Type = "text/javascript"
-
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-[build]
-  command = "npm run build"
-  publish = "build"
-  base = "/"
+from="/*"
+to="/index.html"
+status=200
