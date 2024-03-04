@@ -6,7 +6,6 @@ const User = require("../model/User");
 
 const registerController = async (req, res) => {
   try {
-    // Check if both password and passwordconfirm are provided in the request body
     if (!req.body.password || !req.body.passwordconfirm) {
       return res.status(400).send({
         message: "Both password and passwordconfirm are required",
@@ -22,10 +21,7 @@ const registerController = async (req, res) => {
       });
     }
 
-    // Generate salt
     const salt = await bcrypt.genSalt(10);
-
-    // Hash password and passwordconfirm
     const hashPassword = await bcrypt.hash(req.body.password, salt);
     const confirmPassword = await bcrypt.hash(req.body.passwordconfirm, salt);
 
@@ -37,7 +33,6 @@ const registerController = async (req, res) => {
       lowerCaseAlphabets: false,
     });
 
-    // Ensure that profileImage is provided in the request body
     if (!req.body.profileImage) {
       return res.status(400).send({
         message: "Profile image is required",
@@ -45,60 +40,61 @@ const registerController = async (req, res) => {
       });
     }
 
-    if (hashPassword === confirmPassword) {
-      const newUser = new User({
-        name: req.body.name,
-        email: req.body.email,
-        profileImage: req.body.profileImage,
-        password: hashPassword,
-        passwordconfirm: confirmPassword,
-        otp: otp,
-      });
-      await newUser.save();
-
-      const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
-        expiresIn: "20d",
-      });
-
-      const transporter = nodemailer.createTransport({
-        service: "Gmail",
-        auth: {
-          user: "kkanchana427@gmail.com",
-          pass: "ffmszjyvrigypmew",
-        },
-      });
-
-      const mailOption = {
-        from: "Auth clientt webdev warriors",
-        to: req.body.email,
-        subject: "OTP for email verification",
-        text: `Your verify OTP is ${otp}`,
-      };
-
-      transporter.sendMail(mailOption, (error, info) => {
-        if (error) {
-          console.log(error);
-          return res.status(500).send("Error sending email...");
-        }
-        res.send({
-          message: "OTP sent to email",
-        });
-      });
-
-      return res.status(201).send({
-        message: "Register successfully",
-        data: {
-          user: newUser,
-          token,
-        },
-        success: true,
-      });
-    } else {
+    if (hashPassword !== confirmPassword) {
       return res.status(400).send({
         message: "Passwords do not match",
         success: false,
       });
     }
+
+    const newUser = new User({
+      name: req.body.name,
+      email: req.body.email,
+      profileImage: req.body.profileImage,
+      password: hashPassword,
+      passwordconfirm: confirmPassword,
+      otp: otp,
+    });
+
+    await newUser.save();
+
+    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
+      expiresIn: "20d",
+    });
+
+    const transporter = nodemailer.createTransport({
+      service: "Gmail",
+      auth: {
+        user: process.env.EMAIL_USERNAME,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
+
+    const mailOption = {
+      from: "Auth client webdev warriors",
+      to: req.body.email,
+      subject: "OTP for email verification",
+      text: `Your verify OTP is ${otp}`,
+    };
+
+    transporter.sendMail(mailOption, (error, info) => {
+      if (error) {
+        console.log(error);
+        return res.status(500).send("Error sending email...");
+      }
+      res.send({
+        message: "OTP sent to email",
+      });
+    });
+
+    return res.status(201).send({
+      message: "Register successfully",
+      data: {
+        user: newUser,
+        token,
+      },
+      success: true,
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).send({

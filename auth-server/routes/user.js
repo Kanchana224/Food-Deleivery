@@ -2,7 +2,7 @@ const express= require("express")
 const { registerController, authController, loginController, verifyOtpController, updateUserProfile } = require("../controller/user.js")
 const protect = require("../middleware/authMiddleware")
 
-router=express.Router()
+const router=express.Router()
 
 router.post("/register",registerController)
 router.post("/get-user",protect,authController)

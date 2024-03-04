@@ -41,7 +41,7 @@ const Register = () => {
 
     try {
       const response = await axios.post(
-        "https://food-deleivery.onrender.com/v1/user/register",
+        "https://food-deleivery.onrender.com/api/v1/user/register",
         userData
       );
       if (response.data.success) {
