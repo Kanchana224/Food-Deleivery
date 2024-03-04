@@ -3,8 +3,8 @@ import moose from "../assets/moose.png"
 import chickenBur from "../assets/chiken-burger.png"
 import cheese from "../assets/cheese loaded-pizza.png"
 import combo from "../assets/combo1.png"
-import { useFoodContext } from '../../context/foodContext'
-import Foods from './Food'
+import { useFoodContext } from '../../context/foodContext.jsx'
+import Foods from './Food.jsx'
 import axios from "axios";
 import {FaHeart,FaStar} from "react-icons/fa"
 

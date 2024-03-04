@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from "axios";
-import PageNavigation from '../components/PageNavigation';
-import { useCartContext } from '../../context/CardContext';
+import PageNavigation from '../components/PageNavigation.jsx';
+import { useCartContext } from '../../context/CardContext.jsx';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 
 const FoodPage = () => {

@@ -3,12 +3,12 @@ import { NavLink } from 'react-router-dom';
 import logo from "../assets/logo.png";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useCartContext } from '../../context/CardContext';
-import { useUserContext } from '../../context/UserContext';
+import { useCartContext } from '../../context/CardContext.jsx';
+import { useUserContext } from '../../context/UserContext.jsx';
 import { useStripe } from '@stripe/react-stripe-js';
 import axios from 'axios';
-import Success from './Success';
-import Cancel from './Cancel';
+import Success from './Success.jsx';
+import Cancel from './Cancel.jsx';
 
 const Order = () => {
     const [paymentSuccess, setPaymentSuccess] = useState(false);

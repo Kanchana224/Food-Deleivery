@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { FaHeart, FaStar } from 'react-icons/fa';
-import { useCartContext } from '../../context/CardContext';
+import { useCartContext } from '../../context/CardContext.jsx';
 import { Link } from 'react-router-dom';
-import { useLikedFoodContext } from '../../context/LikedFoodContext'; // Correct import
+import { useLikedFoodContext } from '../../context/LikedFoodContext.jsx'; // Correct import
 
 const Foods = ({ curElem }) => {
   const { addToCart, cartItems, removeItem, addLikedFood } = useCartContext(); // Add addLikedFood from useCartContext

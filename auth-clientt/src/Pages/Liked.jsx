@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaHeart, FaStar } from 'react-icons/fa';
-import { useCartContext } from "../../context/CardContext";
+import { useCartContext } from "../../context/CardContext.jsx";
 
 const LikedPage = () => {
     const likedFoods = JSON.parse(localStorage.getItem('likedFoods')) || [];

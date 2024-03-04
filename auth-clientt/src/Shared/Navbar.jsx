@@ -4,8 +4,8 @@ import png from "../assets/png.png"
 import { TiThMenu } from "react-icons/ti";
 import { RxCross2 } from "react-icons/rx";
 import { Link, useNavigate } from "react-router-dom";
-import { useUserContext } from "../../context/UserContext";
-import { useCartContext } from "../../context/CardContext";
+import { useUserContext } from "../../context/UserContext.jsx";
+import { useCartContext } from "../../context/CardContext.jsx";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);

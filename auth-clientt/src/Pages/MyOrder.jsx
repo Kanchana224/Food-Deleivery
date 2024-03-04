@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
-import { useCartContext } from '../../context/CardContext'
+import { useCartContext } from '../../context/CardContext.jsx'
 import { Link } from 'react-router-dom'
-import { useUserContext } from '../../context/UserContext'
+import { useUserContext } from '../../context/UserContext.jsx'
 
 import axios from 'axios'
 import { FaStar } from 'react-icons/fa'

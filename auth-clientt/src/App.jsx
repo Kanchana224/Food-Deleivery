@@ -1,31 +1,31 @@
 import React, { useState } from 'react';
 import './App.css';
-import Navbar from './Shared/Navbar';
-import Footer from './Shared/Footer';
+import Navbar from './Shared/Navbar.jsx';
+import Footer from './Shared/Footer.jsx';
 import { Routes, Route } from 'react-router-dom';
-import ProtectedRoute from './Pages/ProtectedRoute';
-import VerifyOtp from './Pages/VerifyOtp';
-import Addfood from './Pages/admin/Addfood';
-import Menu from './Pages/Menu';
-import FoodPage from './Pages/FoodPage';
-import Profile from './Pages/Profile';
-import ViewCart from './Pages/ViewCart';
-import Success from './Pages/Success';
-import Cancel from './Pages/Cancel';
-import Order from './Pages/Order';
-import MyOrder from './Pages/MyOrder';
-import AllOrder from './Pages/admin/AllOrder';
+import ProtectedRoute from './Pages/ProtectedRoute.jsx';
+import VerifyOtp from './Pages/VerifyOtp.jsx';
+import Addfood from './Pages/admin/Addfood.jsx';
+import Menu from './Pages/Menu.jsx';
+import FoodPage from './Pages/FoodPage.jsx';
+import Profile from './Pages/Profile.jsx';
+import ViewCart from './Pages/ViewCart.jsx';
+import Success from './Pages/Success.jsx';
+import Cancel from './Pages/Cancel.jsx';
+import Order from './Pages/Order.jsx';
+import MyOrder from './Pages/MyOrder.jsx';
+import AllOrder from './Pages/admin/AllOrder.jsx';
 import RecommendedFood from './components/RecommendedFood';
-import Login from './Pages/Login';
-import Register from './Pages/Register';
+import Login from './Pages/Login.jsx';
+import Register from './Pages/Register.jsx';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import Home from './Pages/Home';
-import TodaySpecial from "./Pages/TodaySpecial"
-import AboutUs from './Pages/AboutUs';
-import FoodList from './Pages/admin/FoodList';
-import UpdateFood from './Pages/admin/UpdateFood';
-import Liked from './Pages/Liked';
+import Home from './Pages/Home.jsx';
+import TodaySpecial from "./Pages/TodaySpecial.jsx"
+import AboutUs from './Pages/AboutUs.jsx';
+import FoodList from './Pages/admin/FoodList.jsx';
+import UpdateFood from './Pages/admin/UpdateFood.jsx';
+import Liked from './Pages/Liked.jsx';
 
 const stripePromise = loadStripe("pk_test_51Om8PESBtUcYrYBCYP4VhhUAqg0bswQDx0yDjehy3fcFQRqZsJc5OeoKMmsnNsXoB2xf1LMboDkajYamlRPsLiY600ki7Yzho9");
 

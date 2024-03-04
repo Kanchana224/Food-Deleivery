@@ -1,5 +1,5 @@
 import React from 'react'
-import { useCartContext } from '../../context/CardContext'
+import { useCartContext } from '../../context/CardContext.jsx'
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 

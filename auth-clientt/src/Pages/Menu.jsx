@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { FaHeart, FaStar } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
-import { useCartContext } from "../../context/CardContext";
-import { useLikedFoodContext } from "../../context/LikedFoodContext";
+import { useCartContext } from "../../context/CardContext.jsx";
+import { useLikedFoodContext } from "../../context/LikedFoodContext.jsx";
 import axios from "axios";
 import pizza from "../assets/spicy-pizza.png";
 import rice from "../assets/biriyani.png";
@@ -12,7 +12,7 @@ import noodles from "../assets/noodles.png";
 import desert from "../assets/moose.png";
 import combo from "../assets/combo1.png";
 import chicken from "../assets/KFC.png";
-import { useFoodContext } from "../../context/foodContext";
+import { useFoodContext } from "../../context/foodContext.jsx";
 
 const Menu = () => {
   const { Food, setFood } = useFoodContext();
