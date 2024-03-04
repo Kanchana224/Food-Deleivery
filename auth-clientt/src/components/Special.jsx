@@ -14,7 +14,7 @@ const Special = () => {
      const { Food, setFood } = useFoodContext()
      const getFoods = async () => {
           try {
-            const res = await axios.get(`http://localhost:8000/api/v1/food/specialFoods`);
+            const res = await axios.get(`https://food-deleivery.onrender.com/api/v1/food/specialFoods`);
             if (res.data.success) {
               setSpecialFood(res.data.data.food)
             }

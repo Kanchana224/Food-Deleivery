@@ -17,7 +17,7 @@ const Profile = () => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:8000/api/v1/all/upload-image",
+        "https://food-deleivery.onrender.com/api/v1/all/upload-image",
         formData
       );
       setImage({
@@ -42,7 +42,7 @@ const Profile = () => {
 
     try {
       const res = await axios.put(
-        "http://localhost:8000/api/v1/user/update",
+        "https://food-deleivery.onrender.com/api/v1/user/update",
         {
           userId: user._id,
           name,

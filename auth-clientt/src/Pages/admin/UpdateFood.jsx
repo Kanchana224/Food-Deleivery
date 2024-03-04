@@ -14,7 +14,7 @@ const UpdateFood = () => {
   useEffect(() => {
     const fetchFood = async () => {
         try {
-            const response = await axios.get(`http://localhost:8000/api/v1/food/getFood/${id}`);
+            const response = await axios.get(`https://food-deleivery.onrender.com/api/v1/food/getFood/${id}`);
             setFood(response.data.data.food); // Set the fetched food data to the state
         } catch (error) {
             console.error("Error fetching food:", error);
@@ -31,7 +31,7 @@ const UpdateFood = () => {
     try {
       setUploading(true);
       const { data } = await axios.post(
-        "http://localhost:8000/api/v1/all/upload-image",
+        "https://food-deleivery.onrender.com/api/v1/all/upload-image",
         formData
       );
       setImage({
@@ -67,7 +67,7 @@ const UpdateFood = () => {
           return;
         }
     
-        const res = await axios.put(`http://localhost:8000/api/v1/food/updateFood/${id}`, updatedFoodData, {
+        const res = await axios.put(`https://food-deleivery.onrender.com/api/v1/food/updateFood/${id}`, updatedFoodData, {
           headers: {
             Authorization: `Bearer ${token}`
           }

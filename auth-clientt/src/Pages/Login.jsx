@@ -15,7 +15,7 @@ const Login = () => {
     const userData = {  email, password };
 
     try {
-      const response = await axios.post("http://localhost:8000/api/v1/user/login", userData);
+      const response = await axios.post("https://food-deleivery.onrender.com/api/v1/user/login", userData);
       if (response.data.success) {
         localStorage.setItem("token", response.data.data.token);
         toast.success(response.data.message);

@@ -19,7 +19,7 @@ const Addfood = () => {
     try {
       setUploading(true);
       const { data } = await axios.post(
-        "http://localhost:8000/api/v1/all/upload-image",
+        "https://food-deleivery.onrender.com/api/v1/all/upload-image",
         formData
       );
       setImage({
@@ -48,7 +48,7 @@ const Addfood = () => {
     const foodData = { name, price, category, weight, location, description, foodImage };
 
     try {
-      const res = await axios.post("http://localhost:8000/api/v1/food/addfood", foodData, {
+      const res = await axios.post("https://food-deleivery.onrender.com/api/v1/food/addfood", foodData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`
         }
