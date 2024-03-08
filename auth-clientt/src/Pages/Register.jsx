@@ -53,7 +53,7 @@ const Register = () => {
     const userData = { name, email, password, role: "user" }; // Add role field
     
     try {
-      const res = await axios.post("http://localhost:8000/api/v1/user/register", userData);
+      const res = await axios.post("https://food-deleivery.onrender.com/api/v1/user/register", userData);
       if (res.data.success) {
         toast.success(res.data.message, { className: "toast-success" }); // Add className for green color
         navigate("/");
