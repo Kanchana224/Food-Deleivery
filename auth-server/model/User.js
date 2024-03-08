@@ -1,88 +1,49 @@
-// user.js
-
-const mongoose = require("mongoose");
+const mongoose=require("mongoose")
 const bcrypt = require("bcrypt");
-const validator = require("validator");
-
+const jwt = require("jsonwebtoken");
 const UserSchema = new mongoose.Schema(
-
-
-
-    {
-        name: {
-            type: String,
-            required: [true,"Please provide your name"],
-            
-        },
-        email: {
-            type: String,
-            required:[true,"please provide your email"],
-            unique: true,
-            validate: [validator.isEmail, "Please provide a valid email"],
-        },
-        password: {
-            type: String,
-            required:[true,"please provide your password"],
-            minlength: 8,
-            select: false,
-        },
-        passwordconfirm: {
-            type: String,
-            required: [true,"please confirm your password"],
-            minlength: 8,
-            select: false,
-            validate: {
-                validator: function(el) {
-                    return el === this.password;
-                },
-                message: "Passwords are do not match",
-            },
-            select:false,
-        },
-
-        passwordChangedAt:Date,
-
-        isVerified: {
-            type: Boolean,
-            default: false,
-        },
-        otp: {
-            type: Number,
-        },
-
-        street:{
-                type:String,
-                required:false,
-        },
-        city:{
-            type:String,
-            required:false,
-        },
-        state:{
-                type:String,
-                required:false,
-        },
-        zipcode:{
-                type:String,
-                required:false,
-        },
-        country:{
-                type:String,
-                required:false,
-        },
-        role: {
-            type: String,
-            enum: ["user", "admin"],
-            default: "user",
-        },
-        profileImage: {
-            type: String,
-            required: true,
-        },
+  {
+    name: {
+      type: String,
+      required: true,
     },
-    {
-        timestamps: true,
-    }
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      minlength: 6,
+      select: false,
+      required: function () {
+        return this.isModified('password') || this.isNew;
+      },
+    },
+    profileImage: {
+      type: String,
+      required: false,
+    },
+    role: { // Add role field
+      type: String,
+      enum: ["user", "admin"], // Define roles
+      default: "user", // Set default role to "user"
+    },
+  },
+  {
+    timestamps: true,
+  }
 );
+
+
+// Hash password before saving
+UserSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    return next();
+  }
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+  next();
+});
 
 module.exports = mongoose.model("User", UserSchema);

@@ -22,11 +22,7 @@ const Navbar = () => {
   return (
     <>
       <div className=" bg-black shadow-md fixed top-0 left-0 w-full z-40 ease-in duration-300 backdrop-blur-md text-white">
-        {user?.user.isVerified === false && (
-          <div className="bg-red-500 py-3 px-4 text-white">
-            <Link to="/verifyOtp">Please verify</Link>
-          </div>
-        )}
+       
         <div className="py-3 px-10 sm:px-4 md:px-6 lg:px-6 container mx-auto  text-white">
           <div className="flex items-center justify-between">
             <Link to="/">

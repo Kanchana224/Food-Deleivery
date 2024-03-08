@@ -1,108 +1,26 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const nodemailer = require("nodemailer");
-const otpGenerator = require("otp-generator");
-const User = require("../model/User");
+const User = require("../model/User.js");
+const multer = require("multer")
 
-const registerController = async (req, res) => {
+
+const registerController = async (request, response) => {
   try {
-    if (!req.body.password || !req.body.passwordconfirm) {
-      return res.status(400).send({
-        message: "Both password and passwordconfirm are required",
-        success: false,
-      });
+    const exist = await User.findOne({ email: request.body.email });
+    if (exist) {
+      return response.status(400).json({ success: false, message: 'User already exists' });
     }
 
-    const existingUser = await User.findOne({ email: req.body.email });
-    if (existingUser) {
-      return res.status(200).send({
-        message: "User already exists",
-        success: false,
-      });
-    }
-
-    const salt = await bcrypt.genSalt(10);
-    const hashPassword = await bcrypt.hash(req.body.password, salt);
-    const confirmPassword = await bcrypt.hash(req.body.passwordconfirm, salt);
-
-    const otp = otpGenerator.generate(6, {
-      digits: true,
-      upperCase: false,
-      specialChars: false,
-      upperCaseAlphabets: false,
-      lowerCaseAlphabets: false,
-    });
-
-    if (!req.body.profileImage) {
-      return res.status(400).send({
-        message: "Profile image is required",
-        success: false,
-      });
-    }
-
-    if (hashPassword !== confirmPassword) {
-      return res.status(400).send({
-        message: "Passwords do not match",
-        success: false,
-      });
-    }
-
-    const newUser = new User({
-      name: req.body.name,
-      email: req.body.email,
-      profileImage: req.body.profileImage,
-      password: hashPassword,
-      passwordconfirm: confirmPassword,
-      otp: otp,
-    });
-
+    const newUser = new User(request.body);
     await newUser.save();
-
-    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
-      expiresIn: "20d",
-    });
-
-    const transporter = nodemailer.createTransport({
-      service: "Gmail",
-      auth: {
-        user: "kkanchana427@gmail.com",
-        pass:"DDrdsytSZgfdDSHDhdsDHDS",
-      },
-    });
-
-    const mailOption = {
-      from: "Auth client webdev warriors",
-      to: req.body.email,
-      subject: "OTP for email verification",
-      text: `Your verify OTP is ${otp}`,
-    };
-
-    transporter.sendMail(mailOption, (error, info) => {
-      if (error) {
-        console.log(error);
-        return res.status(500).send("Error sending email...");
-      }
-      res.send({
-        message: "OTP sent to email",
-      });
-    });
-
-    return res.status(201).send({
-      message: "Register successfully",
-      data: {
-        user: newUser,
-        token,
-      },
-      success: true,
-    });
+    response.status(201).json({ success: true, message: 'User registered successfully', user: newUser });
   } catch (error) {
-    console.log(error);
-    return res.status(500).send({
-      message: "Register error",
-      success: false,
-    });
+    console.error("Error registering user:", error);
+    response.status(500).json({ success: false, message: "An error occurred while registering. Please try again.", error: error.message });
   }
 };
+
+
 
 const authController = async (req, res) => {
   try {
@@ -171,40 +89,7 @@ const loginController = async (req, res) => {
   }
 };
 
-const verifyOtpController = async (req, res) => {
-  try {
-    const email = req.body.email;
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(400).send({
-        success: false,
-        message: "User not found",
-      });
-    }
 
-    const combineOtp = parseInt(req.body.combineOtp, 10); // Convert to number
-    if (user.otp === combineOtp) {
-      // Compare as numbers
-      user.isVerified = true;
-      await user.save();
-      return res.status(200).send({
-        success: true,
-        message: "OTP verified",
-      });
-    } else {
-      return res.status(400).send({
-        success: false,
-        message: "OTP not verified",
-      });
-    }
-  } catch (error) {
-    console.error("Error in verifyOtpController:", error);
-    return res.status(500).send({
-      success: false,
-      message: "Failed to verify OTP",
-    });
-  }
-};
 
 const updateUserProfile = async (req, res) => {
     try {
@@ -254,6 +139,5 @@ module.exports = {
   registerController,
   authController,
   loginController,
-  verifyOtpController,
   updateUserProfile,
 };
