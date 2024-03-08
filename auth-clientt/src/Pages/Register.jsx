@@ -6,12 +6,12 @@ import "react-toastify/dist/ReactToastify.css";
 import avatar from "../assets/avatar.png";
 
 const Register = () => {
-  const [image, setImage] = useState({});
+  const [image, setImage] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
-    profileImage: "",
+    profileImage:"",
   });
   const navigate = useNavigate();
 
@@ -28,15 +28,18 @@ const Register = () => {
     const formData = new FormData();
     formData.append("image", file);
 
+    console.log("Form data after appending image:", formData)
     try {
       const { data } = await axios.post(
         "https://food-deleivery.onrender.com/api/v1/all/upload-image",
         formData
       );
+      console.log("Image URL received:", data.url); // Add this line for debugging
       setImage({
         url: data.url,
         public_id: data.public_id,
       });
+      console.log("Image state after setting:", image); // Add this line for debugging
       setFormData({
         ...formData,
         profileImage: data.url,
@@ -50,7 +53,8 @@ const Register = () => {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     const { name, email, password } = formData;
-    const userData = { name, email, password, role: "user" }; // Add role field
+    const profileImage = image?.url;
+    const userData = { name, email, password, role: "user",profileImage }; // Add role field
     
     try {
       const res = await axios.post("https://food-deleivery.onrender.com/api/v1/user/register", userData);
@@ -77,12 +81,8 @@ const Register = () => {
           className="ease-in duration-300 w-[80%] sm:w-max shadow-sm backdrop-blur-md bg-white/80 lg:w-max mx-auto rounded-md px-8 py-5"
           onSubmit={handleOnSubmit}
         >
-          <label htmlFor="file-upload" className="custom-file-uploadimg h-34">
-            <img
-              src={image?.url || avatar}
-              alt=""
-              className="h-32 w-32 bg-contain rounded-full mx-auto cursor-pointer"
-            />
+          <label htmlFor='file-upload' className='custom-file-uploadimg h-34'>
+            <img src={image?.url || avatar} alt="" className="h-32 w-32 bg-contain rounded-full mx-auto cursor-pointer" />
           </label>
           <label className="block text-center text-gray-900 text-base mb-2">
             Profile Picture

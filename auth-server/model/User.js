@@ -22,7 +22,7 @@ const UserSchema = new mongoose.Schema(
     },
     profileImage: {
       type: String,
-      required: false,
+      required: true,
     },
     role: { // Add role field
       type: String,
