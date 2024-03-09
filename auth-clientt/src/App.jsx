@@ -26,11 +26,20 @@ import AboutUs from './Pages/AboutUs.jsx';
 import FoodList from './Pages/admin/FoodList.jsx';
 import UpdateFood from './Pages/admin/UpdateFood.jsx';
 import Liked from './Pages/Liked.jsx';
+import { useUserContext } from '../context/UserContext.jsx';
 
 const stripePromise = loadStripe("pk_test_51Om8PESBtUcYrYBCYP4VhhUAqg0bswQDx0yDjehy3fcFQRqZsJc5OeoKMmsnNsXoB2xf1LMboDkajYamlRPsLiY600ki7Yzho9");
 
 function App() {
   const [count, setCount] = useState(0);
+  const { user } = useUserContext();
+
+  useEffect(() => {
+    if (!user) {
+      // If user is not authenticated, redirect to Home page
+      return <Navigate to="/" replace />;
+    }
+  }, [user]);
 
   return (
     <>
