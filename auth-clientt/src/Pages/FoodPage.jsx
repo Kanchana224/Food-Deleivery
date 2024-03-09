@@ -27,7 +27,13 @@ const FoodPage = () => {
     }, []);
 
     const handleAddToCart = () => {
-        addToCart({ ...foodDetails, quantity }); // Include quantity in the item object
+        const user = localStorage.getItem('user'); // You need to implement user authentication logic
+        if (!user) {
+            // If user is not logged in, redirect to login page
+            history.push('/login');
+        } else {
+            addToCart({ ...foodDetails, quantity }); // Include quantity in the item object
+        }
     };
 
     const handleRemoveFromCart = () => {

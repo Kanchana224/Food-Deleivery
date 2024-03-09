@@ -30,6 +30,9 @@ const Navbar = () => {
             </Link>
 
             <div className="lg:flex hidden gap-8 items-center">
+            <Link to="/login" className="text-[#fefcfc] text-xl font-bold hover:text-red-500">
+                        login
+                      </Link>
            
             {user?.user?.role === "user" && (
                 <>
