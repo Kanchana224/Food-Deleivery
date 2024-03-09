@@ -13,6 +13,8 @@ const Register = () => {
     password: "",
     profileImage:"",
   });
+  const [emailError, setEmailError] = useState("");
+  const [nameError, setNameError] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -21,6 +23,12 @@ const Register = () => {
       ...prevFormData,
       [name]: value,
     }));
+    if (name === "email") {
+      setEmailError("");
+    }
+    if (name === "name") {
+      setNameError("");
+    }
   };
 
   const handleImage = async (e) => {
@@ -63,6 +71,13 @@ const Register = () => {
         navigate("/");
       } else {
         toast.error(res.data.message);
+        // Handle errors for duplicate email or name
+        if (res.data.message === "Email is already registered") {
+          setEmailError("Email is already registered");
+        }
+        if (res.data.message === "Name is already registered") {
+          setNameError("Name is already registered");
+        }
       }
     } catch (error) {
       console.error("Error registering user:", error);
@@ -106,8 +121,11 @@ const Register = () => {
               onChange={handleChange}
               name="name"
               placeholder="Enter your Name"
-              className="shadow-sm bg-white appearance-none border rounded w-full py-2 px-3 text-grey-700 leading-tight focus:outline-none focus:shadow-outline"
+              className={`shadow-sm bg-white appearance-none border rounded w-full py-2 px-3 text-grey-700 leading-tight focus:outline-none focus:shadow-outline ${
+                nameError && "border-red-500"
+              }`}
             />
+            {nameError && <p className="text-red-500 text-xs italic ml-1">{nameError}</p>}
           </div>
           <div className="mb-3">
             <label htmlFor="email" className="block text-grey-700 text-sm mb-2">
@@ -120,8 +138,11 @@ const Register = () => {
               value={formData.email}
               placeholder="Enter your Email"
               onChange={handleChange}
-              className="shadow-sm bg-white appearance-none border rounded w-full py-2 px-3 text-grey-700 leading-tight focus:outline-none focus:shadow-outline"
+              className={`shadow-sm bg-white appearance-none border rounded w-full py-2 px-3 text-grey-700 leading-tight focus:outline-none focus:shadow-outline ${
+                emailError && "border-red-500"
+              }`}
             />
+            {emailError && <p className="text-red-500 text-xs italic ml-1">{emailError}</p>}
           </div>
           <div className="mb-3">
             <label
