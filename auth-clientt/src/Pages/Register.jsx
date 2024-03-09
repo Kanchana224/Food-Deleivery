@@ -71,13 +71,6 @@ const Register = () => {
         navigate("/");
       } else {
         toast.error(res.data.message);
-        // Handle errors for duplicate email or name
-        if (res.data.message === "Email is already registered") {
-          setEmailError("Email is already registered");
-        }
-        if (res.data.message === "Name is already registered") {
-          setNameError("Name is already registered");
-        }
       }
     } catch (error) {
       console.error("Error registering user:", error);
@@ -86,6 +79,12 @@ const Register = () => {
       } else {
         toast.error("An error occurred while registering. Please try again.");
       }
+    }
+    if (res.data.message === "Email is already registered") {
+      toast.error("Email is already registered. Please use another email.");
+    }
+    if (res.data.message === "Name is already registered") {
+      toast.error("Name is already registered. Please use another name.");
     }
   };
 
